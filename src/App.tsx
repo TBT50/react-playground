@@ -12,9 +12,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
-    return fetch(`https://cloudflareworker.piotrek380.workers.dev`, {
-      mode: "no-cors",
-    })
+    return fetch(`https://cloudflareworker.piotrek380.workers.dev`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -26,6 +24,7 @@ const App = () => {
         setIsLoading(false);
       })
       .catch((err) => {
+        console.log(err);
         setIsError(true);
         setIsLoading(false);
       });
