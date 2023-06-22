@@ -10,7 +10,7 @@ export const Form = ({
   newTaskInputValue,
 }: FormProps) => {
   return (
-    <form onSubmit={handleAddTask} className="max-w-sm mx-auto mt-8">
+    <form onSubmit={handleAddTask}>
       <div className="mb-4">
         <label htmlFor="task" className="block text-gray-700 cursor-pointer">
           New task
@@ -18,6 +18,7 @@ export const Form = ({
         <input
           type="text"
           id="task"
+          required
           className="block w-full px-4 py-2 mt-1 border-2 border-indigo-500 rounded-md shadow-sm"
           onChange={handleNewTaskChange}
           value={newTaskInputValue}

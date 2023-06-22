@@ -7,13 +7,13 @@ type TasksListProps = {
 
 export const TasksList = ({ tasks, handleDeleteTask }: TasksListProps) => {
   return (
-    <ul className="max-w-sm mx-auto mt-8">
+    <ul className="mt-8">
       {tasks.map((task) => (
         <li
           key={task.id}
           className="py-2 px-4 mb-2 bg-white rounded-md shadow-md flex items-center justify-between"
         >
-          <span className="mr-4">{task.name}</span>
+          <span className="mr-4">{task.taskName}</span>
           <button
             onClick={() => handleDeleteTask(task.id)}
             type="button"

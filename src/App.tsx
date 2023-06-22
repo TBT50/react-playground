@@ -1,44 +1,37 @@
-import { useState } from "react";
+import { useEffect } from "react";
+
 import "./App.css";
 
 import { TasksList } from "./components/TasksList";
 import { Form } from "./components/Form";
 
-import { Tasks } from "./types";
+import { useTaskUtils } from "./hooks/useTaskUtils";
 
 function App() {
-  const [tasks, setTasks] = useState<Tasks>([
-    { id: 1, name: "Task 1" },
-    { id: 2, name: "Task 2" },
-  ]);
-  const [newTaskInputValue, setNewTaskInputValue] = useState("");
+  const {
+    tasks,
+    handleAddTask,
+    handleNewTaskChange,
+    newTaskInputValue,
+    handleDeleteTask,
+    fetchTasks,
+    loading,
+  } = useTaskUtils();
 
-  const handleNewTaskChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setNewTaskInputValue(event.target.value);
-
-  const handleAddTask = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const newTask = {
-      id: Math.random(),
-      name: newTaskInputValue,
-    };
-    setTasks([...tasks, newTask]);
-    setNewTaskInputValue("");
-  };
-
-  const handleDeleteTask = (id: number) => {
-    const newTasks = tasks.filter((task) => id !== task.id);
-    setTasks(newTasks);
-  };
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   return (
-    <div className="App">
+    <div className="max-w-sm mx-auto mt-8 px-4">
       <Form
         handleAddTask={handleAddTask}
         handleNewTaskChange={handleNewTaskChange}
         newTaskInputValue={newTaskInputValue}
       />
-      {tasks.length > 0 && (
+      {loading ? (
+        <p className="mt-8">Loading...</p>
+      ) : (
         <TasksList handleDeleteTask={handleDeleteTask} tasks={tasks} />
       )}
     </div>
