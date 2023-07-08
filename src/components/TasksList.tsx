@@ -2,7 +2,7 @@ import { Tasks } from "./../types";
 
 type TasksListProps = {
   tasks: Tasks;
-  handleDeleteTask: (index: number) => void;
+  handleDeleteTask: (index: string) => void;
 };
 
 export const TasksList = ({ tasks, handleDeleteTask }: TasksListProps) => {

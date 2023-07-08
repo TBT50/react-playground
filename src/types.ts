@@ -1,5 +1,5 @@
 export type Tasks = {
-  id?: number | string;
+  id: string;
   createdAt?: string;
   taskName: string;
 }[];

@@ -28,7 +28,7 @@ export const useTaskUtils = () => {
     } catch (error) {}
   };
 
-  const handleDeleteTask = async (id: number) => {
+  const handleDeleteTask = async (id: string) => {
     try {
       const { error } = await supabase.from("tasks").delete().eq("id", id);
       const newTasks = tasks.filter((task) => id !== task.id);
