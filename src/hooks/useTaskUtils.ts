@@ -10,6 +10,7 @@ export const useTaskUtils = () => {
   const [newTaskInputValue, setNewTaskInputValue] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  console.log(error);
 
   const handleNewTaskChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setNewTaskInputValue(event.target.value);
@@ -23,6 +24,7 @@ export const useTaskUtils = () => {
 
     try {
       const { error } = await supabase.from("tasks").insert(newTask);
+      console.log(error);
       setTasks([...tasks, newTask]);
       setNewTaskInputValue("");
     } catch (error) {}
@@ -33,6 +35,7 @@ export const useTaskUtils = () => {
       const { error } = await supabase.from("tasks").delete().eq("id", id);
       const newTasks = tasks.filter((task) => id !== task.id);
       setTasks(newTasks);
+      console.log(error);
     } catch (error) {
       setError(true);
       console.log(error);
