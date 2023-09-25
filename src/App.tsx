@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+type Character = {
+  id: number;
+  name: string;
+  image: string;
+};
+
+type ApiResponse = {
+  info: {
+    count: number;
+    pages: number;
+  };
+  results: Character[];
+};
+
+export default function App() {
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const fetchCharacters = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`https://rickandmortyapi.com/api/character`);
+      if (response.status !== 200) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Please try again later.");
+      }
+      const data: ApiResponse = await response.json();
+      setCharacters(data.results);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unknown error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCharacters();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="max-w-4xl mx-auto">
+      <h1 className="text-[40px] my-6">Characters</h1>
+      {isLoading ? (
+        <p>LOADING...</p>
+      ) : error ? (
+        <p>Something went wrong: {error}</p>
+      ) : (
+        <ul className="grid grid-cols-4 gap-6  mb-20">
+          {characters.map((character) => {
+            return (
+              <li key={character.id}>
+                <img src={character.image} alt="" />
+                <h2 className="text-lg mt-1">{character.name}</h2>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
 }
-
-export default App
