@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 
-type Character = {
-  id: number;
-  name: string;
-  image: string;
-};
+import { Character } from "./types";
+
+import { Characters } from "./components/Characters";
 
 type ApiResponse = {
   info: {
@@ -52,16 +50,7 @@ export default function App() {
       ) : error ? (
         <p>Something went wrong: {error}</p>
       ) : (
-        <ul className="grid grid-cols-4 gap-6  mb-20">
-          {characters.map((character) => {
-            return (
-              <li key={character.id}>
-                <img src={character.image} alt="" />
-                <h2 className="text-lg mt-1">{character.name}</h2>
-              </li>
-            );
-          })}
-        </ul>
+        <Characters characters={characters} />
       )}
     </div>
   );
