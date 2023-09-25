@@ -33,7 +33,7 @@ export default function App() {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError("An unknown error occurred");
+        setError("An unknown error has occurred");
       }
     } finally {
       setIsLoading(false);
