@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 
-type Character = {
-  id: number;
-  name: string;
-  image: string;
-};
+import { Character } from "./types";
+
+import { Characters } from "./components/Characters";
 
 type ApiResponse = {
   info: {
@@ -33,35 +31,29 @@ export default function App() {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError("An unknown error occurred");
+        setError("An unknown error has occurred");
       }
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchCharacters();
-  }, []);
+  // useEffect(() => {
+  //   fetchCharacters();
+  // }, []);
 
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-[40px] my-6">Characters</h1>
+      <button type="button" onClick={fetchCharacters}>
+        FETCH THE DATA
+      </button>
       {isLoading ? (
         <p>LOADING...</p>
       ) : error ? (
         <p>Something went wrong: {error}</p>
       ) : (
-        <ul className="grid grid-cols-4 gap-6  mb-20">
-          {characters.map((character) => {
-            return (
-              <li key={character.id}>
-                <img src={character.image} alt="" />
-                <h2 className="text-lg mt-1">{character.name}</h2>
-              </li>
-            );
-          })}
-        </ul>
+        <Characters characters={characters} />
       )}
     </div>
   );
