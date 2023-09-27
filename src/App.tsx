@@ -38,13 +38,16 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    fetchCharacters();
-  }, []);
+  // useEffect(() => {
+  //   fetchCharacters();
+  // }, []);
 
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-[40px] my-6">Characters</h1>
+      <button type="button" onClick={fetchCharacters}>
+        FETCH THE DATA
+      </button>
       {isLoading ? (
         <p>LOADING...</p>
       ) : error ? (
