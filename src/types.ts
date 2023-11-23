@@ -3,3 +3,11 @@ export type Character = {
   name: string;
   image: string;
 };
+
+export type ApiResponseGlobal = {
+  info: {
+    count: number;
+    pages: number;
+  };
+  results: Character[];
+};

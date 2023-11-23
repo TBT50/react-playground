@@ -1,0 +1,8 @@
+body {
+  min-height: 3000px;
+  overflow-x: hidden;
+}
+
+.moving-element {
+  width: 2000px;
+}

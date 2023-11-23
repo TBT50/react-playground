@@ -5,22 +5,18 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
+    <meta property="og:title" content="Your Page Title" />
+    <meta property="og:description" content="Description of your page" />
+    <meta property="og:image" content="/vite.svg" />
+    <meta property="og:url" content="/" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Page Title" />
+    <meta name="twitter:description" content="Description of your page" />
+    <meta name="twitter:image" content="/vite.svg" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      function findAverage(array) {
-        if (array.length > 0) {
-          let sum = 0;
-          for (let i = 0; i < array.length; i++) {
-            sum += array[i];
-          }
-          return sum / array.length;
-        } else return 0;
-      }
-
-      console.log(findAverage([]));
-    </script>
   </body>
 </html>
