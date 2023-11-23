@@ -1,18 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { useState } from "react";
 
 import "./App.css";
 
-import { Characters } from "./components/Characters";
+// import { Characters } from "./components/Characters";
 import { SingleCharacter } from "./components/SingleCharacter.tsx";
 
 import { Character } from "./types.ts";
 
-const fetchCharacters = async ({ queryKey }: any) => {
-  const [characters, characterId] = queryKey;
-
+const fetchCharacters = async (characterId: number) => {
   const response = await fetch(
     `https://rickandmortyapi.com/api/character/${characterId}`
   );
@@ -36,7 +34,7 @@ export default function App() {
 
   const { isLoading, isError, error, data } = useQuery(
     ["character", itemId],
-    fetchCharacters
+    () => fetchCharacters(itemId)
   );
 
   return (
